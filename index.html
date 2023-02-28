@@ -11,20 +11,36 @@
 </head>
 
 <body>
+    <div>
+        <header>
+            <h1>Etch-a-Sketch</h1>
+        </header>
 
-    <div id="controls">
-        <label for="brd-dim-slider">Pixels per side: <span id="brd-dim">16</span></label>
-        <input id="brd-dim-slider" type="range" min="1" max="64" value="16">
-        <input id="color-picker" type="color" value="#000000" class="mode active">
-        <button id="rainbow" class="mode">Rainbow</button>
-        <button id="darken" class="mode">Darken</button>
-        <button id="lighten" class="mode">Lighten</button>
-        <button id="eraser" class="mode">Eraser</button>
-        <button id="clear">Clear Board</button>
+        <main>
+            <div id="controls">
+                <label for="brd-dim-slider" id="slide-label">Pixels per side: <span id="brd-dim">16</span></label>
+                <input id="brd-dim-slider" type="range" min="1" max="64" value="16">
+                <div>
+                    <label for="color-picker">Drawing mode:</label>
+                    <input id="color-picker" type="color" value="#000000" class="mode active">
+                    <button id="rainbow" class="mode">Rainbow</button>
+                    <button id="darken" class="mode">Darken</button>
+                    <button id="lighten" class="mode">Lighten</button>
+                    <button id="eraser" class="mode">Eraser</button>
+                </div>
+                <button id="clear">Clear Board</button>
+            </div>
+            <div id="board-container"></div>
+        </main>
     </div>
 
-    <div id="board-container"></div>
-
+    <footer>
+        <div>Made by:</div>
+        <a id="gh-link" href="https://github.com/perugi">
+            <img id="gh-logo" src="githublogo.png">
+            <div id="me">Dominik Perusko</div>
+        </a>
+    </footer>
 </body>
 
 </html>

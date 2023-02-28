@@ -134,7 +134,7 @@ brdDimSlider.addEventListener('input', changeBoardDim);
 
 function changeBoardDim(e) {
     brdDim = document.querySelector('#brd-dim');
-    brdDim.textContent = e.target.value;
+    brdDim.textContent = e.target.value.padStart(2, ' ');
 
     createBoard(+e.target.value);
 }
