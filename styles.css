@@ -7,13 +7,13 @@
 body {
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
 #board-container {
-    background-color: black;
+    background-color: gray;
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -25,12 +25,11 @@ body {
     gap: 1px;
 }
 
-.board-square {
-    background-color: white;
-    height: 30px;
-    width: 30px;
+#controls {
+    display: flex;
+    flex-direction: column;
 }
 
-.colored {
-    background-color: black;
+.active {
+    background-color: aquamarine;
 }

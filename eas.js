@@ -1,5 +1,8 @@
 const IDEAL_BOARD_DIM = 500;
 
+let colorMode = 'solid';
+let color = '#000000'; // default color is black
+
 function createBoard(squareNo) {
     boardContainer = document.querySelector('#board-container');
 
@@ -12,6 +15,7 @@ function createBoard(squareNo) {
         for (let j = 0; j < squareNo; j++) {
             newSquare = document.createElement('div');
             newSquare.classList.add('board-square');
+            newSquare.style.backgroundColor = "#ffffff";
             newRow.append(newSquare);
         }
         boardContainer.append(newRow);
@@ -22,8 +26,6 @@ function createBoard(squareNo) {
 
     // Size the squares (total space - borders) / no. of squares
     let squareDim = (IDEAL_BOARD_DIM - (squareNo + 1)) / squareNo;
-    console.log(squareNo);
-    console.log(squareDim);
     boardSquares.forEach(square => {
         square.style.height = `${squareDim}px`;
         square.style.width = `${squareDim}px`;
@@ -31,24 +33,59 @@ function createBoard(squareNo) {
 
     // Make sure that the background is exactly the size of the squares + all the gaps.
     let boardDim = squareNo * (squareDim + 1) + 1;
-    console.log(boardDim);
     boardContainer.style.height = `${boardDim}px`;
     boardContainer.style.width = `${boardDim}px`;
 };
 
 function colorSquare(e) {
-    this.classList.add('colored');
+    switch (colorMode) {
+        case ('solid'):
+            this.style.backgroundColor = color;
+            break;
+        case ('rainbow'):
+            this.style.backgroundColor = getRandomColor();
+            break;
+        case ('darken'):
+            this.style.backgroundColor = darkenLighten(this.style.backgroundColor, 'darken');
+            break;
+        case ('lighten'):
+            this.style.backgroundColor = darkenLighten(this.style.backgroundColor, 'lighten');
+            break;
+        default:
+            console.error(`Invalid mode selected: ${colorMode}`)
+    }
 }
 
-clearBtn = document.querySelector('#clear-btn');
-clearBtn.addEventListener('click', clearBoard);
+function getRandomColor() {
+    red = Math.floor(Math.random() * 256).toString(16);
+    green = Math.floor(Math.random() * 256).toString(16);
+    blue = Math.floor(Math.random() * 256).toString(16);
 
-function clearBoard(e) {
-    boardSquares = document.querySelectorAll('.board-square');
-    boardSquares.forEach(square => square.classList.remove('colored'));
+    return `#${red + green + blue}`;
 }
 
-newBrdBtn = document.querySelector('#new-brd-btn');
+function darkenLighten(color, op) {
+    const re = /rgb\((\d+), (\d+), (\d+)(, (\d+))?\)/;
+    let colors = color.match(re);
+    colors = colors.slice(1, 4).map(color => +color);
+
+    let newColors = [];
+    let newColor;
+    for (color of colors) {
+        if (op === 'darken') {
+            newColor = color - 26;
+            if (newColor < 0) newColor = 0;
+        } else {
+            newColor = color + 26;
+            if (newColor > 255) newColor = 255;
+        }
+        newColors.push(newColor);
+    }
+
+    return '#' + newColors.map(color => color.toString(16).padStart(2, '0')).join("");
+}
+
+newBrdBtn = document.querySelector('#new-brd');
 newBrdBtn.addEventListener('click', promptNewBrd);
 
 function promptNewBrd() {
@@ -63,7 +100,51 @@ function promptNewBrd() {
     createBoard(dimension);
 };
 
+
+colorPicker = document.querySelector('#color-picker');
+colorPicker.addEventListener('input', changeMode);
+
+modeBtns = document.querySelectorAll('.mode');
+modeBtns.forEach(btn => btn.addEventListener('click', changeMode))
+
+function changeMode(e) {
+    modeBtns.forEach(btn => btn.classList.remove('active'));
+    this.classList.add('active');
+
+    switch (this.id) {
+        case ('color-picker'):
+            colorMode = 'solid';
+            color = this.value;
+            break;
+        case ('rainbow'):
+            colorMode = 'rainbow';
+            break;
+        case ('darken'):
+            colorMode = 'darken';
+            break;
+        case ('lighten'):
+            colorMode = 'lighten';
+            break;
+        case ('eraser'):
+            colorMode = 'solid';
+            color = '#ffffff';
+            break;
+        default:
+            console.error(`Invalid mode selected: ${this.id}`)
+    }
+}
+
+
+clearBtn = document.querySelector('#clear');
+clearBtn.addEventListener('click', clearBoard);
+
+function clearBoard(e) {
+    boardSquares = document.querySelectorAll('.board-square');
+    boardSquares.forEach(square => square.style.backgroundColor = "#fff");
+}
+
+
 // Create a default 16x16 board
-createBoard(20);
+createBoard(16);
 
 
