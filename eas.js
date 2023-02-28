@@ -85,21 +85,6 @@ function darkenLighten(color, op) {
     return '#' + newColors.map(color => color.toString(16).padStart(2, '0')).join("");
 }
 
-newBrdBtn = document.querySelector('#new-brd');
-newBrdBtn.addEventListener('click', promptNewBrd);
-
-function promptNewBrd() {
-    let dimension;
-    while (true) {
-        dimension = prompt("Input the number of squares per side (max. 60):");
-        if (dimension === null) return;
-        dimension = +dimension;
-        if (dimension >= 1 && dimension <= 60) break;
-    }
-
-    createBoard(dimension);
-};
-
 
 colorPicker = document.querySelector('#color-picker');
 colorPicker.addEventListener('input', changeMode);
@@ -144,7 +129,15 @@ function clearBoard(e) {
 }
 
 
-// Create a default 16x16 board
-createBoard(16);
+brdDimSlider = document.querySelector('#brd-dim-slider');
+brdDimSlider.addEventListener('input', changeBoardDim);
 
+function changeBoardDim(e) {
+    brdDim = document.querySelector('#brd-dim');
+    brdDim.textContent = e.target.value;
 
+    createBoard(+e.target.value);
+}
+
+// Create a default board with dimensions as in the default HTML file.
+createBoard(+brdDimSlider.value);

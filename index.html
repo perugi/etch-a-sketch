@@ -13,7 +13,8 @@
 <body>
 
     <div id="controls">
-        <button id="new-brd">New Board</button>
+        <label for="brd-dim-slider">Pixels per side: <span id="brd-dim">16</span></label>
+        <input id="brd-dim-slider" type="range" min="1" max="64" value="16">
         <input id="color-picker" type="color" value="#000000" class="mode active">
         <button id="rainbow" class="mode">Rainbow</button>
         <button id="darken" class="mode">Darken</button>
