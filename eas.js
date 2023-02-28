@@ -65,7 +65,7 @@ function getRandomColor() {
 }
 
 function darkenLighten(color, op) {
-    const re = /rgb\((\d+), (\d+), (\d+)(, (\d+))?\)/;
+    const re = /rgb\((\d+), (\d+), (\d+)([\., \d]*)\)/;
     let colors = color.match(re);
     colors = colors.slice(1, 4).map(color => +color);
 
