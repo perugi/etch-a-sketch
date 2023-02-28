@@ -54,9 +54,10 @@ newBrdBtn.addEventListener('click', promptNewBrd);
 function promptNewBrd() {
     let dimension;
     while (true) {
-        dimension = +prompt("Input the number of squares per side (max. 64):");
+        dimension = prompt("Input the number of squares per side (max. 60):");
         if (dimension === null) return;
-        if (dimension >= 1 && dimension <= 64) break;
+        dimension = +dimension;
+        if (dimension >= 1 && dimension <= 60) break;
     }
 
     createBoard(dimension);
