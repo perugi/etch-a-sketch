@@ -1,5 +1,5 @@
 #  etch-a-sketch
-A web etch-a-sketch. odo list application, built with vanilla JS and CSS.
+A web etch-a-sketch, built with vanilla JS and CSS.
 Created in order to practice JavaScript DOM manipulation
 
 💻 [Live Demo](https://perugi.github.io/odin-etch-a-sketch/) 💻
